@@ -1,6 +1,6 @@
-import Bot from "./lib/bot.js";
-import getPostText from "./lib/getPostText.js";
+import Bot from "./lib/bot";
+import generateField from "./lib/generateField";
 
-const text = await Bot.run(getPostText, { dryRun: true });
+const text = await Bot.run(generateField, { dryRun: true });
 
-console.log(`[${new Date().toISOString()}] Posted: "${text}"`);
+console.log(`[${new Date().toISOString()}] Posted:\n${text}`);

@@ -1,10 +1,12 @@
-import { bskyAccount, bskyService } from "./config.js";
+import { bskyAccount, bskyService } from "./config";
 import type {
   AtpAgentLoginOpts,
-  AtpAgentOpts,
+  AtpAgentOptions,
   AppBskyFeedPost,
 } from "@atproto/api";
 import atproto from "@atproto/api";
+
+// this class is deprecated but gives info on how to update
 const { BskyAgent, RichText } = atproto;
 
 type BotOptions = {
@@ -20,7 +22,7 @@ export default class Bot {
     dryRun: false,
   } as const;
 
-  constructor(service: AtpAgentOpts["service"]) {
+  constructor(service: AtpAgentOptions["service"]) {
     this.#agent = new BskyAgent({ service });
   }
 
@@ -48,7 +50,7 @@ export default class Bot {
   }
 
   static async run(
-    getPostText: () => Promise<string>,
+    getPostText: () => Promise<string> | string,
     botOptions?: Partial<BotOptions>
   ) {
     const { service, dryRun } = botOptions
