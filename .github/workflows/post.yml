@@ -8,10 +8,10 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Use Bun runtime
         uses: oven-sh/setup-bun@v2
-      - run: bun i
+      - run: bun i --production
       - run: bun run build
       - name: Send post
         run: bun start
