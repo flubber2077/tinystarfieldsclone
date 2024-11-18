@@ -1,5 +1,5 @@
-import Bot from "./lib/bot";
-import generateField from "./lib/generateField";
+import Bot from './lib/bot';
+import generateField from './lib/generateField';
 
 const text = await Bot.run(generateField, { dryRun: true });
 

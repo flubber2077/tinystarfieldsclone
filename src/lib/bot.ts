@@ -1,10 +1,6 @@
-import { bskyAccount, bskyService } from "./config";
-import type {
-  AtpAgentLoginOpts,
-  AtpAgentOptions,
-  AppBskyFeedPost,
-} from "@atproto/api";
-import atproto from "@atproto/api";
+import { bskyAccount, bskyService } from './config';
+import type { AtpAgentLoginOpts, AtpAgentOptions, AppBskyFeedPost } from '@atproto/api';
+import atproto from '@atproto/api';
 
 // this class is deprecated but gives info on how to update
 const { BskyAgent, RichText } = atproto;
@@ -22,7 +18,7 @@ export default class Bot {
     dryRun: false,
   } as const;
 
-  constructor(service: AtpAgentOptions["service"]) {
+  constructor(service: AtpAgentOptions['service']) {
     this.#agent = new BskyAgent({ service });
   }
 
@@ -31,12 +27,9 @@ export default class Bot {
   }
 
   async post(
-    text:
-      | string
-      | (Partial<AppBskyFeedPost.Record> &
-          Omit<AppBskyFeedPost.Record, "createdAt">)
+    text: string | (Partial<AppBskyFeedPost.Record> & Omit<AppBskyFeedPost.Record, 'createdAt'>),
   ) {
-    if (typeof text === "string") {
+    if (typeof text === 'string') {
       const richText = new RichText({ text });
       await richText.detectFacets(this.#agent);
       const record = {
@@ -49,10 +42,7 @@ export default class Bot {
     }
   }
 
-  static async run(
-    getPostText: () => Promise<string> | string,
-    botOptions?: Partial<BotOptions>
-  ) {
+  static async run(getPostText: () => Promise<string> | string, botOptions?: Partial<BotOptions>) {
     const { service, dryRun } = botOptions
       ? Object.assign({}, this.defaultOptions, botOptions)
       : this.defaultOptions;

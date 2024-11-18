@@ -2,18 +2,17 @@
 
 This is a template repo for building [Bluesky](https://bsky.app/) bots that post on their own schedule. It uses [TypeScript](https://www.typescriptlang.org/) to build the bot and [GitHub Actions](https://docs.github.com/en/actions) to schedule the posts.
 
-* [How to use](#how-to-use)
-  * [Things you will need](#things-you-will-need)
-    * [A Bluesky account](#a-bluesky-account)
-    * [Node.js](#nodejs)
-  * [Create a new repository from this template](#create-a-new-repository-from-this-template)
-  * [Running locally to test](#running-locally-to-test)
-  * [Create your own posts](#create-your-own-posts)
-  * [Deploy](#deploy)
-    * [Schedule](#schedule)
-    * [Environment variables](#environment-variables)
-  * [Set it live](#set-it-live)
-
+- [How to use](#how-to-use)
+  - [Things you will need](#things-you-will-need)
+    - [A Bluesky account](#a-bluesky-account)
+    - [Node.js](#nodejs)
+  - [Create a new repository from this template](#create-a-new-repository-from-this-template)
+  - [Running locally to test](#running-locally-to-test)
+  - [Create your own posts](#create-your-own-posts)
+  - [Deploy](#deploy)
+    - [Schedule](#schedule)
+    - [Environment variables](#environment-variables)
+  - [Set it live](#set-it-live)
 
 ## How to use
 
@@ -68,7 +67,7 @@ You can now run the bot locally with the command:
 npm run dev
 ```
 
-This will use your credentials to connect to Bluesky, but it *won't actually create a post yet*. If your credentials are correct, you should see the following printed to your terminal:
+This will use your credentials to connect to Bluesky, but it _won't actually create a post yet_. If your credentials are correct, you should see the following printed to your terminal:
 
 ```
 [TIMESTAMP] Posted: "Hello from the Bluesky API"
@@ -107,14 +106,14 @@ For example, the following YAML will schedule your bot to post at 5:30 and 17:30
 ```yml
 on:
   schedule:
-    - cron: "30 5,17 * * *"
+    - cron: '30 5,17 * * *'
 ```
 
 Be warned that many GitHub Actions jobs are scheduled to happen on the hour, so that is a busy time and may see your workflow run later than expected or be dropped entirely.
 
 #### Environment variables
 
-In your repo's settings, under *Secrets and variables* > *Actions* you need to enter two Secrets to match your `.env` file. One secret should be called `BSKY_HANDLE` and contain your Bluesky username, and the other should be called `BSKY_PASSWORD` and contain your App Password that you generated for the bot account.
+In your repo's settings, under _Secrets and variables_ > _Actions_ you need to enter two Secrets to match your `.env` file. One secret should be called `BSKY_HANDLE` and contain your Bluesky username, and the other should be called `BSKY_PASSWORD` and contain your App Password that you generated for the bot account.
 
 ### Set it live
 
