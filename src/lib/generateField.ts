@@ -8,8 +8,8 @@ import {
 
 const EMPTY_SPACE = ' ';
 
-export default function generateField(options?: object): string {
-  const lines: string[] = new Array(LINE_AMOUNT).fill('');
+export default function generateField(): string {
+  const lines: string[] = new Array(LINE_AMOUNT).fill('') as string[];
   return lines
     .map(() => generateLine())
     .join('\n')
