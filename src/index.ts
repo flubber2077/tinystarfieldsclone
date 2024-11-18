@@ -1,6 +1,17 @@
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat'
 import Bot from './lib/bot';
-import generateField from './lib/generateField';
+import generateField from './lib/generateField'
 
-const text = await Bot.run(generateField, { dryRun: false });
+dayjs.extend(localizedFormat)
 
-console.log(`[${new Date().toISOString()}] Text Length: ${text.length}. Posted:\n${text}`);
+const dryRun = process.env.NODE_ENV === 'development';
+const text = await Bot.run(generateField, { dryRun });
+
+console.log(
+  `[${dayjs().format('LLLL')}]
+  Text Length: ${text.length}.
+  ${dryRun ? 'Was not' : 'Was'} skeeted based on dryRun variable.
+  Posted:
+  ${text}`,
+);
