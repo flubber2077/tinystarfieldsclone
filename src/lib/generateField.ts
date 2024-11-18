@@ -6,8 +6,6 @@ import {
   CHAR_LIMIT,
 } from './constants';
 
-const EMPTY_SPACE = ' ';
-
 export default function generateField(): string {
   const lines: string[] = new Array(LINE_AMOUNT).fill('') as string[];
   return lines
@@ -23,6 +21,8 @@ const generateLine = (): string => {
   }
   return line.trimEnd();
 };
+
+const EMPTY_SPACE = ' ';
 
 const generateStars = (): string =>
   Math.random() < CHAR_PROBABILITY ? getRandomElement(STAR_CHARACTERS) : EMPTY_SPACE;
