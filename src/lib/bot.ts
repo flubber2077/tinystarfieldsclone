@@ -1,9 +1,6 @@
 import { bskyAccount, bskyService } from './config';
 import type { AtpAgentLoginOpts, AtpAgentOptions, AppBskyFeedPost } from '@atproto/api';
-import atproto from '@atproto/api';
-
-// this class is deprecated but gives info on how to update
-const { BskyAgent, RichText } = atproto;
+import { AtpAgent, RichText } from '@atproto/api';
 
 type BotOptions = {
   service: string | URL;
@@ -19,7 +16,7 @@ export default class Bot {
   } as const;
 
   constructor(service: AtpAgentOptions['service']) {
-    this.#agent = new BskyAgent({ service });
+    this.#agent = new AtpAgent({ service });
   }
 
   login(loginOpts: AtpAgentLoginOpts) {
