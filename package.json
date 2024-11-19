@@ -6,7 +6,7 @@
   "type": "module",
   "repository": {
     "type": "git",
-    "url":"git+https://github.com/flubber2077/tinystarfieldsclone"
+    "url": "git+https://github.com/flubber2077/tinystarfieldsclone"
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
