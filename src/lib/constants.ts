@@ -1,3 +1,5 @@
+export const LOCAL = !!process.env.LOCAL;
+
 // POST GENERATION
 // Hard limits
 export const CHAR_LIMIT = 300; // unused
