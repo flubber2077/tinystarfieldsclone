@@ -6,7 +6,6 @@ import { LOCAL } from './lib/constants';
 
 dayjs.extend(localizedFormat);
 
-
 const dryRun = LOCAL;
 const text = await Bot.run(generateField, { dryRun });
 
