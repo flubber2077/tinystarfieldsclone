@@ -11,7 +11,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "prettier . --write --cache && eslint src/ --cache",
-    "build": "bun build ./src/index.ts --outdir ./dist --minify",
+    "build": "bun build.ts",
     "watch": "tsc --watch",
     "start": "bun .",
     "dev": "bun run build && bun run start"

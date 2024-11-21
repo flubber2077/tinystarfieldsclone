@@ -14,11 +14,9 @@ export default function generateField(): string {
     .slice(0, CHAR_LIMIT); // limit to size of bluesky post, should be unneccessary
 }
 
-const generateLine = (): string => {
+const generateLine = (lineLength = LINE_LENGTH): string => {
   let line = '';
-  for (let i = 0; i < LINE_LENGTH; i++) {
-    line += generateStars();
-  }
+  for (let i = 0; i < lineLength; i++) line += generateStars();
   return line.trimEnd();
 };
 
