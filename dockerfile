@@ -1,20 +1,25 @@
-FROM oven/bun:latest
+FROM oven/bun:latest AS base
+WORKDIR /usr/src/app
 
 # copy and install dependencies
-COPY package.json ./
-COPY bun.lockb ./
-RUN bun i --production
 
+FROM base AS install
+RUN mkdir -p /temp/prod
+COPY package.json bun.lockb /temp/prod/
+RUN cd /temp/prod bun install --frozen-lockfile --production
+
+FROM base AS build
 #create file
 COPY build.ts ./
-COPY src ./
-RUN  bun run build
+# COPY src ./src/
+COPY --from=install /temp/prod/node_modules node_modules
+RUN bun run build
 
-FROM oven/bun:latest
+FROM base AS bundle
 # Copy only files needed to run
-COPY --from=0 ./dist/ ./
+COPY --from=build ./dist/dylan.js ./
 COPY .env ./
 
 #run
 USER bun
-ENTRYPOINT [ "bun", "run", "./index.js" ]
+ENTRYPOINT [ "bun", "src/dylan.ts" ]
