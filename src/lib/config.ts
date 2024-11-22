@@ -1,17 +1,12 @@
-import { z } from 'zod';
 import type { AtpAgentLoginOpts } from '@atproto/api';
 
-const envSchema = z.object({
-  BSKY_HANDLE: z.string().min(1),
-  BSKY_PASSWORD: z.string().min(1),
-  BSKY_SERVICE: z.string().min(1).default('https://bsky.social'),
-});
+const { BSKY_SERVICE = 'https://bsky.social', BSKY_HANDLE, BSKY_PASSWORD } = process.env;
 
-const parsedEnv = envSchema.parse(process.env);
+if (!BSKY_HANDLE || !BSKY_PASSWORD) throw new Error(`didn't set up handle or password`);
 
 export const bskyAccount: AtpAgentLoginOpts = {
-  identifier: parsedEnv.BSKY_HANDLE,
-  password: parsedEnv.BSKY_PASSWORD,
+  identifier: BSKY_HANDLE,
+  password: BSKY_PASSWORD,
 };
 
-export const bskyService = parsedEnv.BSKY_SERVICE;
+export const bskyService = BSKY_SERVICE;
