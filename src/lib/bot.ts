@@ -1,38 +1,21 @@
 import { bskyAccount, bskyService } from './config';
 import type { AtpAgentLoginOpts, AtpAgentOptions, AppBskyFeedPost } from '@atproto/api';
 import { AtpAgent, RichText } from '@atproto/api';
+import dayjs from 'dayjs';
+import localizedFormat from 'dayjs/plugin/localizedFormat';
 
-type BotOptions = {
-  service: string | URL;
-  dryRun: boolean;
-};
+dayjs.extend(localizedFormat)
+
+type BotOptions = { service: string | URL; dryRun: boolean };
+type BSkyPost = Partial<AppBskyFeedPost.Record> & Omit<AppBskyFeedPost.Record, 'createdAt'>;
 
 export default class Bot {
   private agent;
 
-  static defaultOptions = {
-    service: bskyService,
-    dryRun: false,
-  } as const;
+  static defaultOptions = { service: bskyService, dryRun: false } as const;
 
   constructor(service: AtpAgentOptions['service']) {
     this.agent = new AtpAgent({ service });
-  }
-
-  login = (loginOpts: AtpAgentLoginOpts) => this.agent.login(loginOpts);
-
-  async post(
-    postText:
-      | string
-      | (Partial<AppBskyFeedPost.Record> & Omit<AppBskyFeedPost.Record, 'createdAt'>),
-  ) {
-    if (typeof postText !== 'string') {
-      return this.agent.post(postText);
-    }
-    const richText = new RichText({ text: postText });
-    await richText.detectFacets(this.agent);
-    const { text, facets } = richText;
-    return this.agent.post({ text, facets });
   }
 
   static async run(
@@ -45,6 +28,30 @@ export default class Bot {
     if (!dryRun) {
       await bot.post(text);
     }
+    this.log(text, dryRun);
     return text;
+  }
+
+  private login = (loginOpts: AtpAgentLoginOpts) => this.agent.login(loginOpts);
+
+  private post = async (input: string | BSkyPost) => {
+    const post = typeof input === 'string' ? await this.transformStringToPost(input) : input;
+    return this.agent.post(post);
+  };
+
+  private transformStringToPost = async (textString: string): Promise<BSkyPost> => {
+    const richText = new RichText({ text: textString });
+    await richText.detectFacets(this.agent);
+    const { text, facets } = richText;
+    return { text, facets };
+  };
+
+  private static log = (text: string, dryRun: boolean) => {
+    console.log(`[${dayjs().format('LLLL')}]
+    Text Length: ${text.length}.
+    dryRun = ${dryRun}
+    ${dryRun ? 'Was not' : 'Was'} skeeted based on dryRun variable.
+    Posted:
+    ${text}`,)
   }
 }

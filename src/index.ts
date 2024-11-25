@@ -1,18 +1,25 @@
-import dayjs from 'dayjs';
-import localizedFormat from 'dayjs/plugin/localizedFormat';
+import { Cron, type CronOptions } from 'croner';
 import Bot from './lib/bot';
 import generateField from './lib/generateField';
-import { LOCAL } from './lib/constants';
+import { LOCAL, CRON_SCHEDULE } from './lib/constants';
+import dayjs from 'dayjs';
+import utc from 'dayjs/plugin/utc';
+import timezone from 'dayjs/plugin/timezone';
 
-dayjs.extend(localizedFormat);
+dayjs.extend(utc);
+dayjs.extend(timezone);
 
 const dryRun = LOCAL;
-const text = await Bot.run(generateField, { dryRun });
 
-console.log(
-  `[${dayjs().format('LLLL')}]
-  Text Length: ${text.length}.
-  ${dryRun ? 'Was not' : 'Was'} skeeted based on dryRun variable.
-  Posted:
-  ${text}`,
+const job = new Cron(
+  CRON_SCHEDULE,
+  { timezone: dayjs.tz.guess() },
+  async () => await Bot.run(generateField, { dryRun }),
 );
+
+const nextPosts = job.nextRuns(20).map((date) => dayjs(date).format('L LT'));
+console.log(`next posts at:\n`,nextPosts);
+
+if (!job.nextRun() && !job.previousRun()) {
+  console.log('No executions scheduled');
+}
