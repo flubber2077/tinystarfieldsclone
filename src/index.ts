@@ -11,15 +11,17 @@ dayjs.extend(timezone);
 
 const dryRun = LOCAL;
 
-const job = new Cron(
-  CRON_SCHEDULE,
-  { timezone: dayjs.tz.guess() },
-  async () => await Bot.run(generateField, { dryRun }),
-);
+Bot.run(generateField, { dryRun });
 
-const nextPosts = job.nextRuns(20).map((date) => dayjs(date).format('L LT'));
-console.log(`next posts at:\n`,nextPosts);
+// const job = new Cron(
+//   CRON_SCHEDULE,
+//   { timezone: dayjs.tz.guess() },
+//   async () => await Bot.run(generateField, { dryRun }),
+// );
 
-if (!job.nextRun() && !job.previousRun()) {
-  console.log('No executions scheduled');
-}
+// const nextPosts = job.nextRuns(20).map((date) => dayjs(date).format('L LT'));
+// console.log(`next posts at:\n`,nextPosts);
+
+// if (!job.nextRun() && !job.previousRun()) {
+//   console.log('No executions scheduled');
+// }
