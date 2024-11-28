@@ -13,7 +13,7 @@
     "lint": "prettier . --write --cache && eslint src/ --cache",
     "build": "bun build.ts",
     "watch": "tsc --watch",
-    "start": "bun .",
+    "start": "bun dist/index.js",
     "dev": "bun run build && bun run start"
   },
   "keywords": [
