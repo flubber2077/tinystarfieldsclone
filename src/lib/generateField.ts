@@ -3,7 +3,7 @@ import stars from '../data/stars';
 
 // function to format string closer to twitter's presentation
 export default function generateField(lineAmount = LINE_AMOUNT, lineLength = LINE_LENGTH) {
-  const field = [];
+  const field: string[] = [];
   while (field.length < lineAmount) {
     field.push(generateLine(lineLength));
   }
