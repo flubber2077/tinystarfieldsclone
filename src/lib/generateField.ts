@@ -1,24 +1,21 @@
-import { LINE_LENGTH, CHAR_LIMIT } from './constants';
+import { LINE_LENGTH, CHAR_LIMIT, LINE_AMOUNT } from './constants';
 import stars from '../data/stars';
 
 // function to format string closer to twitter's presentation
-export default function generateField(): string {
-  const result: string[] = [];
-  const arrayOfChars = generateChars().split('');
-  while (arrayOfChars.length) {
-    const a = arrayOfChars.splice(0, LINE_LENGTH).join('').trimEnd();
-    result.push(a);
+export default function generateField(lineAmount = LINE_AMOUNT, lineLength = LINE_LENGTH) {
+  const field = [];
+  while (field.length < lineAmount) {
+    field.push(generateLine(lineLength));
   }
-  return result.join('\n').slice(0, CHAR_LIMIT); // limit to size of bluesky post, should be unneccessary
+  return field.join('\n').slice(0, CHAR_LIMIT); // limit to size of bluesky post, should be unneccessary
 }
 
-const generateChars = (): string => {
-  const amountOfGenerates = Math.floor(Math.random() * 5) + 5;
+const generateLine = (lineLength: number): string => {
   let line = '';
-  for (let i = 0; i < amountOfGenerates; i++) {
+  while (line.length < lineLength) {
     line += getRandomElement(stars);
   }
-  return line;
+  return line.trimEnd();
 };
 
 const getRandomElement = <T>(arr: ArrayLike<T>): T =>

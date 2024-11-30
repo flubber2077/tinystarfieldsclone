@@ -4,9 +4,12 @@ import { AtpAgent, RichText } from '@atproto/api';
 import dayjs from 'dayjs';
 import localizedFormat from 'dayjs/plugin/localizedFormat';
 
-dayjs.extend(localizedFormat)
+dayjs.extend(localizedFormat);
 
-type BotOptions = { service: string | URL; dryRun: boolean };
+interface BotOptions {
+  service: string | URL;
+  dryRun: boolean;
+}
 type BSkyPost = Partial<AppBskyFeedPost.Record> & Omit<AppBskyFeedPost.Record, 'createdAt'>;
 
 export default class Bot {
@@ -52,6 +55,6 @@ export default class Bot {
     dryRun = ${dryRun}
     ${dryRun ? 'Was not' : 'Was'} skeeted based on dryRun variable.
     Posted:
-    ${text}`,)
-  }
+    ${text}`);
+  };
 }

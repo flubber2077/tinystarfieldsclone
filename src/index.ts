@@ -4,4 +4,4 @@ import { LOCAL } from './lib/constants';
 
 const dryRun = LOCAL;
 
-Bot.run(generateField, { dryRun });
+await Bot.run(generateField, { dryRun });
