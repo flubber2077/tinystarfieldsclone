@@ -51,8 +51,8 @@ export default class Bot {
 
   private static log = (text: string, dryRun: boolean) => {
     console.log(`[${dayjs().format('LLLL')}]
-    Text Length: ${text.length}.
-    dryRun = ${dryRun}
+    Text Length: ${String(text.length)}.
+    dryRun = ${String(dryRun)}
     ${dryRun ? 'Was not' : 'Was'} skeeted based on dryRun variable.
     Posted:
     ${text}`);

@@ -9,7 +9,5 @@ export const CRON_SCHEDULE = '20 9/4 * * *';
 export const CHAR_LIMIT = 120; // limiting to twitter's original post length to conform to original bot
 
 // Artistic choices
-export const LINE_AMOUNT = 6;
-export const LINE_LENGTH = 25;
-
-// export const STAR_CHARACTERS = `*.··˚⊹⋆✦✧✫✵✹✺`;
+export const LINE_AMOUNT_MAX = 8;
+export const LINE_LENGTH_MAX = 40;

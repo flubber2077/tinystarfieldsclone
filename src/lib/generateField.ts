@@ -1,8 +1,10 @@
-import { LINE_LENGTH, CHAR_LIMIT, LINE_AMOUNT } from './constants';
+import { CHAR_LIMIT, LINE_LENGTH_MAX, LINE_AMOUNT_MAX } from './constants';
 import stars from '../data/stars';
 
 // function to format string closer to twitter's presentation
-export default function generateField(lineAmount = LINE_AMOUNT, lineLength = LINE_LENGTH) {
+export default function generateField() {
+  const lineLength = bellCurveRandom(20, LINE_LENGTH_MAX);
+  const lineAmount = bellCurveRandom(1, LINE_AMOUNT_MAX);
   const field: string[] = [];
   while (field.length < lineAmount) {
     field.push(generateLine(lineLength));
@@ -20,3 +22,11 @@ const generateLine = (lineLength: number): string => {
 
 const getRandomElement = <T>(arr: ArrayLike<T>): T =>
   arr[Math.floor(Math.random() * arr.length)] as T;
+
+const bellCurveRandom = (min: number, max: number): number => {
+  let res = min;
+  for (let i = min; i < max; i++) {
+    res += Math.random();
+  }
+  return res;
+};

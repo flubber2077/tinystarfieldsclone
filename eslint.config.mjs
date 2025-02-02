@@ -9,7 +9,7 @@ export default [
   eslint.configs.recommended,
   eslintConfigPrettier,
   ...tseslint.configs.stylisticTypeChecked,
-  ...tseslint.configs.recommendedTypeChecked,
+  ...tseslint.configs.strictTypeChecked,
   {
     languageOptions: {
       parser: tsParser,
