@@ -3,7 +3,7 @@ import stars from '../data/stars';
 
 // function to format string closer to twitter's presentation
 export default function generateField() {
-  const lineLength = bellCurveRandom(20, LINE_LENGTH_MAX);
+  const lineLength = bellCurveRandom(15, LINE_LENGTH_MAX);
   const lineAmount = bellCurveRandom(1, LINE_AMOUNT_MAX);
   const field: string[] = [];
   while (field.length < lineAmount) {
